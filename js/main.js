@@ -12,6 +12,8 @@ import * as ocpp from './ocpp_constants.js'
 const WSURL = 'WSURL';
 const CPID  = 'CPID';
 const TAGID = 'TAG';
+const RESID = 'RESID';
+const CONID = 'CONID';
 
 // the charge point
 var _cp = new ChargePoint();
@@ -37,7 +39,7 @@ function keyDefaultValue(key) {
     var v=""
     switch(key) {
         case WSURL:
-            v="ws://localhost:8080/steve/websocket/CentralSystemService/";
+            v="ws://localhost:8080/ecm/websocket/CentralSystemService/";
             break;
         case CPID:
             v='CP01';
@@ -143,6 +145,8 @@ $( document ).ready(function() {
     $('#WSURL').val(getKey(WSURL))
     $('#CPID').val(getKey(CPID))
     $('#TAG').val(getKey(TAGID))
+    $('#RESID').val(getKey(RESID))
+    $('#CONID').val(getKey(CONID))
     $("#metervalue").val(_cp.meterValue());
     availabilityChangeCb(0,_cp.availability(0));
     availabilityChangeCb(1,_cp.availability(1));
@@ -170,7 +174,7 @@ $( document ).ready(function() {
 
     $('#start').click(function () {
         _cp.setMeterValue($("#metervalue").val(),false);
-        _cp.startTransaction($("#TAG").val());
+        _cp.startTransaction($("#TAG").val(),$("#CONID").val(),$("#RESID").val());
     });
 
     $('#stop').click(function () {

@@ -174,9 +174,11 @@ export default class ChargePoint {
                 console.log("RemoteStartTransaction");
                 //Need to get idTag, connectorId (map - ddata[3])
                 var tagId = payload.idTag;
+                var connectorId = payload.connectorId;
+                var reservationId = payload.reservationId;
                 this.logMsg("Reception of a RemoteStartTransaction request for tag "+tagId);
                 this.wsSendData(respOk);
-                this.startTransaction(tagId);
+                this.startTransaction(tagId,connectorId,reservationId);
                 break;
 
             case "RemoteStopTransaction":
